@@ -1,0 +1,52 @@
+type AppUser {
+  id: ID
+  name: String!
+  username: String!
+  mobile: String!
+  preferred_username: String!
+  role: String!
+  is_active: Boolean!
+  is_deleted: Boolean!
+  created_at: Int
+  updated_at: Int
+}
+
+input AppUserInput {
+  id: ID
+  name: String!
+  username: String!
+  mobile: String!
+  preferred_username: String!
+  role: String!
+  is_active: Boolean
+  is_deleted: Boolean
+}
+
+input AppUserUpdateInput {
+  id: ID
+  name: String
+  username: String
+  mobile: String
+  preferred_username: String
+  role: String
+  is_active: Boolean
+  is_deleted: Boolean
+}
+
+type Query {
+  getAppUser(id: ID!): AppUser
+  getAppUsers(role: String, page: Int, size: Int): [AppUser]
+  getAppUserByMobile(mobile: String!): AppUser
+  getAppUserByUsername(username: String!): AppUser
+  getAppUserByPreferredUsername(preferredUsername: String!): AppUser
+  getAppUserByIsActive(isActive: Boolean!): AppUser
+  getAppUserByIsDeleted(isDeleted: Boolean!): AppUser
+}
+
+type Mutation {
+  createAppUser(input: AppUserInput!): AppUser
+  updateAppUser(input: AppUserUpdateInput!): AppUser
+  deleteAppUser(id: ID!): AppUser
+}
+
+
