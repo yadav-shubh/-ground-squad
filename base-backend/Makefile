@@ -4,9 +4,9 @@ PROTO_DIR        := modules
 OUT_DIR          := generate/grpc
 
 # modules that require protoc-gen-validate
-GRPC_MODULES              := app_user
+GRPC_MODULES              := app_user health
 # modules that do not require validation plugin
-GRPC_MODULES_NO_VALIDATION := health
+GRPC_MODULES_NO_VALIDATION :=
 
 # go plugin options
 GO_OUT       := --go_out=$(OUT_DIR) --go_opt=paths=source_relative
