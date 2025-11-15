@@ -7,6 +7,7 @@ import (
 	"github.com/yadav-shubh/base-backend/utils"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 	"net"
 )
 
@@ -22,6 +23,8 @@ func main() {
 		utils.Log.Error("Unable to resolve tcp", zap.String("address", addr))
 	}
 	grpcServer := grpc.NewServer()
+
+	reflection.Register(grpcServer)
 
 	health.RegisterHealthServer(grpcServer, healthGrpc.NewHealthServer())
 
