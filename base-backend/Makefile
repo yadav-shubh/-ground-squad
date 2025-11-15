@@ -30,10 +30,10 @@ protoc:
 	  protoc \
 	    --proto_path=$(PGV_PROTO_DIR) \
 	    --go_opt=paths=source_relative \
-	    --go_out=. \
+	    --go_out=$(OUT_DIR) \
 	    --go-grpc_opt=paths=source_relative \
-	    --go-grpc_out=. \
-	    --validate_out="lang=go:." \
+	    --go-grpc_out=$(OUT_DIR) \
+	    --validate_out="lang=go:$(OUT_DIR)" \
 	    --validate_opt="paths=source_relative" \
 	    modules/$(mod)/grpc/$(mod).proto; \
 	)
@@ -45,23 +45,23 @@ protoc:
 	  protoc \
 	    --proto_path=$(PGV_PROTO_DIR) \
 	    --go_opt=paths=source_relative \
-	    --go_out=. \
+	    --go_out=$(OUT_DIR) \
 	    --go-grpc_opt=paths=source_relative \
-	    --go-grpc_out=. \
+	    --go-grpc_out=$(OUT_DIR) \
 	    modules/$(mod)/grpc/$(mod).proto; \
 	)
 
-	@echo
-	@echo "=== Moving generated pb, grpc and validate files into $(OUT_DIR) ==="
-	@set -e; \
-	# find generated files scattered in repo and move them to OUT_DIR
-	find . -type f \( -name '*.pb.go' -o -name '*_grpc.pb.go' -o -name '*.validate.go' \) ! -path "./$(OUT_DIR)/*" -print0 | \
-	while IFS= read -r -d $$'\0' file; do \
-	  bn=$$(basename "$$file"); \
-	  echo "  moving $$file -> $(OUT_DIR)/$$bn"; \
-	  mv -f "$$file" "$(OUT_DIR)/$$bn" || { echo "ERROR moving $$file"; exit 1; }; \
-	done; \
-	# cleanup empty directories under modules (optional)
-	find modules -type d -empty -delete || true
-
-	@echo "=== Done. All generated files are in $(OUT_DIR) ==="
+#	@echo
+#	@echo "=== Moving generated pb, grpc and validate files into $(OUT_DIR) ==="
+#	@set -e; \
+#	# find generated files scattered in repo and move them to OUT_DIR
+#	find . -type f \( -name '*.pb.go' -o -name '*_grpc.pb.go' -o -name '*.validate.go' \) ! -path "./$(OUT_DIR)/*" -print0 | \
+#	while IFS= read -r -d $$'\0' file; do \
+#	  bn=$$(basename "$$file"); \
+#	  echo "  moving $$file -> $(OUT_DIR)/$$bn"; \
+#	  mv -f "$$file" "$(OUT_DIR)/$$bn" || { echo "ERROR moving $$file"; exit 1; }; \
+#	done; \
+#	# cleanup empty directories under modules (optional)
+#	find modules -type d -empty -delete || true
+#
+#	@echo "=== Done. All generated files are in $(OUT_DIR) ==="
