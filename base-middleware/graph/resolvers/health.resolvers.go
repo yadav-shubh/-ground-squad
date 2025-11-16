@@ -6,9 +6,9 @@ package resolvers
 
 import (
 	"context"
-	"github.com/yadav-shubh/base-middleware/modules"
 
 	"github.com/yadav-shubh/base-middleware/graph/model"
+	"github.com/yadav-shubh/base-middleware/modules"
 )
 
 // Health is the resolver for the health field.

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/yadav-shubh/base-backend/config"
 	"github.com/yadav-shubh/base-backend/generated/grpc/modules/health/grpc"
 	healthGrpc "github.com/yadav-shubh/base-backend/modules/health/server"
 	"github.com/yadav-shubh/base-backend/utils"
@@ -18,7 +19,7 @@ import (
 
 func main() {
 
-	connStr := fmt.Sprintf("0.0.0.0:%d", 8000)
+	connStr := config.Get().Server.Host
 	utils.Log.Info("Binding gRPC server", zap.String("address", connStr))
 
 	listener, err := createReusePortListener("tcp", connStr)
